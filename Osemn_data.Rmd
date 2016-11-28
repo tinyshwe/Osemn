@@ -1,0 +1,48 @@
+---
+title: "Osemn_Data"
+author: "Shweta"
+date: "11/19/2016"
+output: pdf_document
+---
+
+
+```{r,echo=TRUE, tidy=TRUE,eval=TRUE}
+install.packages("jsonlite")
+install.packages("plyr")
+install.packages("ggplot2")
+library(jsonlite)
+library(plyr)
+library(ggplot2)
+url  <- 'https://api.github.com/'                 # the GitHub API
+path <- 'search/repositories'                     #  Repositories path
+searchJava <- '?q=language:Java'                  # And language = Java
+searchJavaScript <- '?q=language:JavaScript'      # Language = JavaScript
+
+java_url<-paste0(url,path,searchJava)
+javascript_url<-paste0(url,path,searchJavaScript)
+
+data_Java<-jsonlite::fromJSON(java_url)
+data_Javascript<-jsonlite::fromJSON(javascript_url)
+
+dataframe_Java<-as.data.frame(data_Java)
+dataframe_Javascript<-as.data.frame(data_Javascript)
+dataframe_Java
+dataframe_Javascript
+java<-dataframe_Java[1,1]
+javascript<-dataframe_Javascript[1,1]
+java
+javascript
+#Creating a table with these values:
+
+language_Set<-c("Java","JavaScript")
+repositories_count<-c(get("java"),get("javascript"))
+
+Column<-cbind(language_Set,repositories_count)
+Result<-as.data.frame(Column)
+Result
+
+```
+
+
+
+
